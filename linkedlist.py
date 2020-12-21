@@ -53,7 +53,7 @@ class LinkedList:
                 node.next = new_node
                 return
         
-        raise Exception("Node with data %s not found!" % target_node_data.data)
+        raise Exception("Node with data %s not found!" % target_node_data)
 
     def add_before(self, target_node_data, new_node):
         if not self.head:
@@ -72,10 +72,25 @@ class LinkedList:
             prev_node = node
         
         raise Exception("Node with data %s not found!" % target_node_data)
+    
+    def remove_node(self, target_node_data):
+        if not self.head:
+            raise Exception("List is empty!")
+
+        if self.head == target_node_data:
+            self.head = self.head.next
+            return
+
+        prev_node = self.head
+        for node in self:
+            if node.data == target_node_data:
+                prev_node.next = node.next 
+                return    
+            prev_node = node
+
+        raise Exception("Node with data %s not found!" % target_node_data)
 
 llist = LinkedList(["a", "b", "c"])
-
-print(llist)
 
 llist.add_first(Node("1"))
 llist.add_first(Node("2"))
@@ -84,7 +99,11 @@ llist.add_last(Node("e"))
 llist.add_last(Node("f"))
 
 llist.add_after("2", Node("1.4"))
+#llist.add_after("10", Node("11"))
+
 llist.add_before("e", Node("d"))
+#llist.add_before("z", Node("x"))
+llist.remove_node("a")
 
 for node in llist:
     print(node)
