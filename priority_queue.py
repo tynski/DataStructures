@@ -1,16 +1,21 @@
 def heapify(queue, n, i):
     largest = i
+    #left i child
     l = 2 * i + 1
+    #right i child 
     r = 2 * i + 2
 
+    # check if root is the biggest
     if l < n and queue[i] < queue[l]:
         largest = l
     
     if r < n and queue[largest] < queue[r]:
         largest = r
 
+    #if not swap root with the largest child
     if largest != i:
         queue[i], queue[largest] = queue[largest], queue[i]
+        #heapify swapped root
         heapify(queue, n, largest)
 
 def insert(queue, new_element):
@@ -18,6 +23,7 @@ def insert(queue, new_element):
         queue.append(new_element)
     else:
         queue.append(new_element)
+        #heapify each root 
         for i in range((len(queue) - 1) // 2, -1, -1):
             heapify(queue, len(queue), i)
 
